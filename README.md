@@ -1,34 +1,92 @@
 # Monero Payment SDK
 
-Welcome to the Monero Payment SDK documentation! This SDK provides a simple way to integrate Monero (XMR) cryptocurrency payments into your web applications.
-
-## Overview
-
-The Monero Payment SDK is a React-based toolkit that allows you to:
-
-- Accept Monero (XMR) payments in your web applications
-- Generate payment addresses and monitor payment status
-- Provide an intuitive payment interface for your users
-- Connect to real Monero nodes or use mock mode for development
+A JavaScript SDK for easily integrating Monero (XMR) payments into web applications.
 
 ## Features
 
-- **Simple Integration**: Easily add Monero payments to any React application
-- **Flexible Setup**: Works with self-hosted or remote Monero nodes
-- **Development Mode**: Use mock mode during development without needing a real Monero wallet
-- **Secure**: Proper handling of payment verification and status updates
-- **Customizable UI**: Supports both light and dark mode, with customizable styling
+- **React Component**: Ready-to-use payment UI component
+- **JavaScript API**: Programmatic access for custom implementations
+- **Flexible Integration**: Works with hosted or self-managed payment gateways
+- **Dark Mode Support**: UI adapts to light/dark themes
+- **Responsive Design**: Works on mobile and desktop
 
-## Getting Started
+## Installation
 
-See the [Getting Started](./docs/getting-started.md) guide to begin integrating Monero payments into your application.
+```bash
+npm install monero-payment-sdk
+# or
+yarn add monero-payment-sdk
+```
 
-## API Reference
+## Quick Start
 
-Comprehensive documentation is available for both the:
-- [React Component API](./docs/component-api.md)
+### 1. Import the Component
+
+```jsx
+import { MoneroPaymentComponent } from 'monero-payment-sdk';
+```
+
+### 2. Add it to Your App
+
+```jsx
+function CheckoutPage() {
+  return (
+    <div>
+      <h1>Checkout</h1>
+      <MoneroPaymentComponent 
+        gatewayUrl="https://pay.whiskypeak.com"
+        apiKey="your-api-key" 
+        amount={0.025}
+        description="Premium Plan - 1 Month"
+        onPaymentComplete={(id) => {
+          console.log(`Payment complete: ${id}`);
+          // Handle successful payment
+        }}
+      />
+    </div>
+  );
+}
+```
+
+## Using Hosted Services
+
+For the fastest integration, use a hosted Monero payment service:
+
+1. **Sign up** for a WhiskyPeak payment gateway account by contacting sarthakkapila1@gmail.com
+2. **Get API credentials** for your account
+3. **Integrate** using the gatewayUrl and apiKey provided
+
+```jsx
+<MoneroPaymentComponent 
+  gatewayUrl="https://pay.whiskypeak.com"
+  apiKey="your-api-key-from-whiskypeak" 
+  amount={0.025}
+  description="Premium Plan"
+/>
+```
+
+## Documentation
+
+- [Getting Started](./docs/getting-started.md)
+- [Component API](./docs/component-api.md)
 - [JavaScript API](./docs/js-api.md)
+- [Troubleshooting](./docs/troubleshooting.md)
+
+## Advantages of Monero for Payments
+
+- **Privacy**: Transactions are private by default
+- **Low Fees**: Much lower fees than credit card processors
+- **No Chargebacks**: Eliminates fraud risk for merchants
+- **Global Access**: Accept payments from anywhere in the world
+- **Fast Settlements**: Transactions confirm quickly
+
+## Need Help?
+
+Contact Sarthak Kapila at sarthakkapila1@gmail.com for:
+- Custom integration assistance
+- Hosted payment gateway access
+- Enterprise support options
 
 ## License
 
-MIT
+ISC License

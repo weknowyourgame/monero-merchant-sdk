@@ -1,6 +1,6 @@
 {
   "name": "monero-payment-sdk",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "SDK for integrating Monero payments for Merchant\n visit: https://pay.whiskypeak.com\n Pls Note: This is package is still under development and is not completely ready for production use\n For any queries, please contact at sarthakkapila1@gmail.com",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
