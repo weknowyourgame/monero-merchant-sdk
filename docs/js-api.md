@@ -214,11 +214,9 @@ async function checkOrderPayment(orderId) {
   return isComplete;
 }
 ```
-```
 
 ## 6. Create a docs/mock-mode.md file:
 
-```markdown
 # Mock Mode
 
 Mock mode allows you to develop and test your Monero payment integration without requiring a real Monero wallet or blockchain.
@@ -230,10 +228,7 @@ Mock mode allows you to develop and test your Monero payment integration without
 - In CI/CD pipelines for automated testing
 - When demonstrating the payment system
 
-## How Mock Mode Works
-
 When mock mode is enabled:
-
 1. The payment gateway will use a mock implementation instead of connecting to a real Monero wallet
 2. Address generation always returns the same placeholder address
 3. Payment verification always reports successful payment after a short delay
@@ -242,6 +237,6 @@ When mock mode is enabled:
 ## Enabling Mock Mode
 
 In your payment gateway's `.env` file:
-
 ```
 MONERO_MOCK=true
+```
