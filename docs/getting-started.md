@@ -43,20 +43,12 @@ function CheckoutPage() {
 
 ## Using a Remote Hosted Service
 
-### Why Use a Hosted Service
-- Avoid maintaining your own Monero node
-- No need to synchronize the blockchain (which can take days)
-- Faster setup time
-- Professional management and uptime
-- No need to handle security concerns
-
-### Popular Monero RPC Service Providers
-- GetMonero.org remote nodes
-- MoneroWorld.com
-- Node.Monerooutreach.org
-- WhiskyPeak Payment Gateway (contact: sarthakkapila1@gmail.com)
+### Popular Monero RPC Service Providers ???
+- NONE
+- ALWAYS RUN YOUR OWN NODE
 
 ### Setup with a Hosted RPC Service
+[Monero node over Tor](https://github.com/weknowyourgame/Run-Monero-Node)
 1. **Create an Account with a Provider**
    Most services will provide:
    - Host URL
