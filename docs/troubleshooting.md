@@ -2,47 +2,6 @@
 
 Common issues and solutions for the Monero Payment SDK.
 
-## Common Problems with Self-Hosted Nodes
-
-### Synchronization Issues
-**Problem:** 
-Initial blockchain sync can take days to complete, and the wallet cannot function properly until sync is complete.
-
-**Solution:**
-- Use a hosted RPC service to avoid the sync time completely
-- If you must use your own node, start with a pruned blockchain
-- Consider downloading a bootstrap file to speed up initial sync
-
-### High Resource Usage
-**Problem:**
-Running a full Monero node requires:
-- 75+ GB of disk space (and growing)
-- Significant RAM and CPU during sync
-- Constant network bandwidth
-
-**Solution:**
-- Use a hosted service to avoid hardware requirements
-- If self-hosting, ensure server has adequate resources (4GB+ RAM, SSD storage)
-- Consider using a dedicated server instead of shared hosting
-
-### Security Vulnerabilities
-**Problem:**
-Self-hosting exposes your server to potential attacks if not properly secured.
-
-**Solution:**
-- Use a professional hosted service with security expertise
-- If self-hosting, never expose RPC ports directly to the internet
-- Set up proper firewall rules and use a VPN for remote access
-
-### Reliability & Uptime
-**Problem:**
-Node may crash or become unresponsive during high demand or after updates.
-
-**Solution:**
-- Use a hosted service with guaranteed uptime SLA
-- If self-hosting, implement monitoring and auto-restart scripts
-- Set up alerts for node failures
-
 ## Component Issues
 
 ### "Failed to create invoice: [object Object]"
