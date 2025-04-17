@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+    "moduleResolution": "node",
+      "target": "es2017", // Change from es2016 to es2017
+      "jsx": "react-jsx",
+      "module": "esnext",
+      "declaration": true,
+      "outDir": "./dist",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "lib": ["dom", "es2017"] // Add this line to include es2017 libraries
+    },
+    "include": ["*.ts", "*.tsx"],
+    "exclude": ["node_modules", "dist"]
+  }

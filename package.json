@@ -1,0 +1,30 @@
+{
+  "name": "monero-payment-sdk",
+  "version": "1.0.1",
+  "description": "SDK for integrating Monero payments for Merchant\n visit: https://pay.whiskypeak.com\n Pls Note: This is package is still under development and is not completely ready for production use\n For any queries, please contact at sarthakkapila1@gmail.com",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "monero",
+    "payments",
+    "crypto",
+    "xmr",
+    "react"
+  ],
+  "author": "Sarthak Kapila",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.4"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.0.0"
+  }
+} 
