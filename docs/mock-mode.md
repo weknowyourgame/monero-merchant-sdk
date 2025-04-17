@@ -79,9 +79,10 @@ If you're still experiencing issues:
 2. Review the payment gateway server logs
 3. Verify Monero wallet and daemon are functioning correctly
 4. Create an issue on the GitHub repository with detailed information
+
 ```
 MONERO_MOCK=true
-
+```
 
 ## Testing with Mock Mode
 
