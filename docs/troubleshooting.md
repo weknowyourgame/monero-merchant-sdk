@@ -2,6 +2,47 @@
 
 Common issues and solutions for the Monero Payment SDK.
 
+## Common Problems with Self-Hosted Nodes
+
+### Synchronization Issues
+**Problem:** 
+Initial blockchain sync can take days to complete, and the wallet cannot function properly until sync is complete.
+
+**Solution:**
+- Use a hosted RPC service to avoid the sync time completely
+- If you must use your own node, start with a pruned blockchain
+- Consider downloading a bootstrap file to speed up initial sync
+
+### High Resource Usage
+**Problem:**
+Running a full Monero node requires:
+- 75+ GB of disk space (and growing)
+- Significant RAM and CPU during sync
+- Constant network bandwidth
+
+**Solution:**
+- Use a hosted service to avoid hardware requirements
+- If self-hosting, ensure server has adequate resources (4GB+ RAM, SSD storage)
+- Consider using a dedicated server instead of shared hosting
+
+### Security Vulnerabilities
+**Problem:**
+Self-hosting exposes your server to potential attacks if not properly secured.
+
+**Solution:**
+- Use a professional hosted service with security expertise
+- If self-hosting, never expose RPC ports directly to the internet
+- Set up proper firewall rules and use a VPN for remote access
+
+### Reliability & Uptime
+**Problem:**
+Node may crash or become unresponsive during high demand or after updates.
+
+**Solution:**
+- Use a hosted service with guaranteed uptime SLA
+- If self-hosting, implement monitoring and auto-restart scripts
+- Set up alerts for node failures
+
 ## Component Issues
 
 ### "Failed to create invoice: [object Object]"
@@ -25,7 +66,7 @@ Common issues and solutions for the Monero Payment SDK.
 
 **Solutions:**
 - Check that your Monero node is fully synced
-- Wait for more confirmations (adjust `MONERO_MIN_CONFIRMATIONS` if needed)
+- Wait for more confirmations (adjust confirmation threshold if needed)
 - Verify the exact payment amount was sent
 
 ## Gateway Issues
@@ -39,7 +80,7 @@ Common issues and solutions for the Monero Payment SDK.
 
 **Solutions:**
 - Verify the Monero wallet RPC service is running
-- Check your `.env` file settings (MONERO_HOST, MONERO_PORT)
+- Check your environment settings (MONERO_HOST, MONERO_PORT)
 - Ensure RPC username and password are correct
 
 ### Wallet RPC Returns Errors
@@ -54,26 +95,15 @@ Common issues and solutions for the Monero Payment SDK.
 - Ensure the Monero daemon (monerod) is running
 - Check file permissions on the wallet file
 
-## Database Issues
+## Hosted Service Advantages
 
-### Invoice Creation Fails
+If you're experiencing persistent issues with your own Monero node, consider these benefits of switching to a hosted service:
 
-**Possible causes:**
-- Database connection issues
-- Table schema problems
-- Missing required fields
-
-**Solutions:**
-- Verify database connection settings
-- Run the migration script to ensure proper table structure
-- Check for missing fields in the invoice creation request
-
-## Development Tips
-
-1. Start with mock mode enabled for faster development
-2. Use logging to track payment process flow
-3. Test with small amounts on testnet before going to production
-4. Monitor both the payment gateway and Monero wallet logs
+1. **Immediate Functionality** - No waiting for blockchain sync
+2. **Technical Support** - Get help from experts who specialize in Monero infrastructure
+3. **Automatic Updates** - Stay current with network changes without manual intervention
+4. **Cost Effective** - Often cheaper than running your own hardware when factoring in time and resources
+5. **Scalability** - Easily handle traffic spikes without performance degradation
 
 ## Getting Help
 
@@ -82,4 +112,4 @@ If you're still experiencing issues:
 1. Check the console for detailed error messages
 2. Review the payment gateway server logs
 3. Verify Monero wallet and daemon are functioning correctly
-4. Create an issue on the GitHub repository with detailed information
+4. Contact us at sarthakkapila1@gmail.com for professional support

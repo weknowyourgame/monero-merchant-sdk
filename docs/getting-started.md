@@ -41,20 +41,54 @@ function CheckoutPage() {
 }
 ```
 
+## Using a Remote Hosted Service
+
+### Why Use a Hosted Service
+- Avoid maintaining your own Monero node
+- No need to synchronize the blockchain (which can take days)
+- Faster setup time
+- Professional management and uptime
+- No need to handle security concerns
+
+### Popular Monero RPC Service Providers
+- GetMonero.org remote nodes
+- MoneroWorld.com
+- Node.Monerooutreach.org
+- WhiskyPeak Payment Gateway (contact: sarthakkapila1@gmail.com)
+
+### Setup with a Hosted RPC Service
+1. **Create an Account with a Provider**
+   Most services will provide:
+   - Host URL
+   - Port number
+   - Authentication credentials
+
+2. **Configure Your Gateway**
+   Use the provided credentials in your configuration:
+   ```jsx
+   <MoneroPaymentComponent 
+     gatewayUrl="https://your-selected-provider.com"
+     apiKey="your-api-key"
+     amount={0.01}
+     description="Premium Subscription"
+   />
+   ```
+
 ## Configuration Options
 
 | Property | Type | Description |
 |----------|------|-------------|
 | `gatewayUrl` | string | URL of your payment gateway |
+| `apiKey` | string | Authentication key for the gateway |
 | `amount` | number | Amount in XMR |
 | `description` | string | Description of the payment |
 | `onPaymentComplete` | function | Callback when payment is complete |
 | `onPaymentError` | function | Callback when an error occurs |
 | `darkMode` | boolean | Enable dark mode styling |
 
-For complete configuration options, see the [Component API](./component-api.md) documentation.
+For complete configuration options, see the Component API documentation.
 
 ## Next Steps
 
-- [Setup Options](./setup-options.md) - Different ways to set up your Monero payment system
-- [API Reference](./api-reference.md) - Complete API documentation
+- Review the API Reference for more detailed information
+- See the Troubleshooting guide if you encounter issues

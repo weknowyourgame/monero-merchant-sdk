@@ -12,6 +12,6 @@
       "skipLibCheck": true,
       "lib": ["dom", "es2017"] // Add this line to include es2017 libraries
     },
-    "include": ["*.ts", "*.tsx"],
+    "include": ["*.ts", "*.tsx", "src/MoneroPayment.ts", "src/index.ts"],
     "exclude": ["node_modules", "dist"]
   }

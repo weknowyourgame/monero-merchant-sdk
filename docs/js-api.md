@@ -1,133 +1,217 @@
 # JavaScript API Reference
 
-The `MoneroPayment` class provides programmatic access to the Monero payment functionality.
+The Monero Payment SDK provides a JavaScript API for direct integration with your backend systems.
 
-## Constructor
+## MoneroPayment Class
 
-```typescript
-new MoneroPayment(config: MoneroPaymentConfig)
-```
+The `MoneroPayment` class provides methods for creating and managing Monero payment invoices without using the React component.
 
-### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `config.gatewayUrl` | string | URL of the payment gateway |
-| `config.apiKey` | string | Optional API key for authentication |
-
-## Methods
-
-### createInvoice
-
-```typescript
-createInvoice(options: CreateInvoiceOptions): Promise<{ id: string; address: string }>
-```
-
-Creates a new Monero invoice.
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `options.amount` | number | Amount in XMR |
-| `options.description` | string | Optional description |
-| `options.refund` | string | Optional refund address |
-
-#### Returns
-
-A Promise resolving to an object containing:
-- `id`: The invoice ID
-- `address`: The Monero payment address
-
-### checkInvoice
-
-```typescript
-checkInvoice(id: string): Promise<InvoiceInfo>
-```
-
-Checks the status of an invoice.
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | The invoice ID |
-
-#### Returns
-
-A Promise resolving to an object containing:
-- `status`: Payment status ('Pending', 'Confirming', 'Received', 'Expired')
-- `amount`: Invoice amount in XMR
-- `address`: Payment address
-- `expiry`: Expiry timestamp
-- `description`: Invoice description (if provided)
-- `refund`: Refund address (if provided)
-
-### isPaymentComplete
-
-```typescript
-isPaymentComplete(id: string): Promise<boolean>
-```
-
-Checks if a payment has been completed.
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | The invoice ID |
-
-#### Returns
-
-A Promise resolving to a boolean indicating if payment is complete.
-
-### waitForPayment
-
-```typescript
-waitForPayment(id: string, timeoutMs?: number, checkIntervalMs?: number): Promise<void>
-```
-
-Waits for a payment to complete with a timeout.
-
-#### Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | The invoice ID |
-| `timeoutMs` | number | Timeout in milliseconds (default: 30 minutes) |
-| `checkIntervalMs` | number | Check interval in milliseconds (default: 10 seconds) |
-
-#### Returns
-
-A Promise that resolves when payment is complete or rejects on timeout.
-
-## Usage Example
+### Importing
 
 ```javascript
 import { MoneroPayment } from 'monero-payment-sdk';
+```
 
-async function processPayment() {
-  const moneroClient = new MoneroPayment({
-    gatewayUrl: 'https://your-payment-gateway.com',
+### Constructor
+
+```javascript
+const moneroPayment = new MoneroPayment({
+  gatewayUrl: 'https://pay.whiskypeak.com',
+  apiKey: 'your-api-key-here'
+});
+```
+
+#### Configuration Options
+
+| Option | Type | Required | Description |
+|--------|------|----------|-------------|
+| `gatewayUrl` | string | Yes | URL of the payment gateway service |
+| `apiKey` | string | No | API key for authentication with the service |
+
+### Methods
+
+#### createInvoice(options)
+
+Creates a new Monero payment invoice.
+
+```javascript
+const { id, address } = await moneroPayment.createInvoice({
+  amount: 0.025,
+  description: 'Premium subscription',
+  refund: 'your-refund-address'
+});
+
+console.log(`Payment ID: ${id}`);
+console.log(`Payment Address: ${address}`);
+```
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `amount` | number | Yes | Amount in XMR |
+| `description` | string | No | Description of the payment |
+| `refund` | string | No | Refund address if needed |
+
+**Returns:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | string | Unique invoice ID |
+| `address` | string | Monero payment address |
+
+#### checkInvoice(id)
+
+Checks the status of an existing invoice.
+
+```javascript
+const invoiceInfo = await moneroPayment.checkInvoice('abc123xyz456');
+console.log(`Status: ${invoiceInfo.status}`);
+console.log(`Amount: ${invoiceInfo.amount}`);
+```
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | Yes | The invoice ID to check |
+
+**Returns:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `status` | string | Payment status ('Pending', 'Confirming', 'Received', 'Expired') |
+| `amount` | string | Invoice amount in XMR |
+| `address` | string | Payment address |
+| `refund` | string | Refund address if provided |
+| `expiry` | string | Expiry timestamp |
+| `description` | string | Invoice description if provided |
+
+#### isPaymentComplete(id)
+
+Checks if a payment has been completed.
+
+```javascript
+const isComplete = await moneroPayment.isPaymentComplete('abc123xyz456');
+if (isComplete) {
+  console.log('Payment has been received!');
+} else {
+  console.log('Payment is still pending');
+}
+```
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | Yes | The invoice ID to check |
+
+**Returns:**
+
+`boolean` - `true` if payment is complete, `false` otherwise
+
+#### waitForPayment(id, timeoutMs, checkIntervalMs)
+
+Waits for a payment to complete with a timeout.
+
+```javascript
+try {
+  await moneroPayment.waitForPayment('abc123xyz456', 15 * 60 * 1000, 5000);
+  console.log('Payment received!');
+  // Process completed payment
+} catch (error) {
+  console.error('Payment timeout or error:', error.message);
+  // Handle timeout or error
+}
+```
+
+**Parameters:**
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `id` | string | Yes | - | The invoice ID to check |
+| `timeoutMs` | number | No | 30 * 60 * 1000 | Timeout in milliseconds (default: 30 minutes) |
+| `checkIntervalMs` | number | No | 10 * 1000 | Check interval in milliseconds (default: 10 seconds) |
+
+**Returns:**
+
+`Promise<void>` - Resolves when payment is complete, rejects on timeout or error
+
+## Integration with Hosted Services
+
+### WhiskyPeak Payment Service
+
+For the simplest integration, use our hosted payment service:
+
+```javascript
+const moneroPayment = new MoneroPayment({
+  gatewayUrl: 'https://pay.whiskypeak.com',
+  apiKey: 'your-api-key-from-whiskypeak'
+});
+```
+
+Contact sarthakkapila1@gmail.com to get API credentials.
+
+### Custom Hosted Service
+
+If using another hosted service, use their gateway URL:
+
+```javascript
+const moneroPayment = new MoneroPayment({
+  gatewayUrl: 'https://your-selected-provider.url',
+  apiKey: 'your-api-key'
+});
+```
+
+## Example: Complete Payment Processing
+
+```javascript
+const { MoneroPayment } = require('monero-payment-sdk');
+
+async function processOrder(order) {
+  // Initialize with hosted service
+  const moneroPayment = new MoneroPayment({
+    gatewayUrl: 'https://pay.whiskypeak.com',
+    apiKey: 'your-api-key-here'
   });
-
+  
   try {
-    // Create an invoice
-    const { id, address } = await moneroClient.createInvoice({
-      amount: 0.01,
-      description: 'Product purchase',
+    // Create invoice
+    const { id, address } = await moneroPayment.createInvoice({
+      amount: order.total,
+      description: `Order #${order.id}`
     });
-
-    console.log(`Please pay ${amount} XMR to: ${address}`);
-
-    // Wait for payment (with 15 minute timeout)
-    await moneroClient.waitForPayment(id, 15 * 60 * 1000);
     
-    console.log('Payment received!');
-    // Process order fulfillment
+    // Save invoice ID to order
+    order.paymentId = id;
+    order.paymentAddress = address;
+    await order.save();
+    
+    // Return payment details to customer
+    return { paymentId: id, paymentAddress: address };
   } catch (error) {
-    console.error('Payment error:', error);
+    console.error('Error creating payment:', error);
+    throw new Error('Unable to process payment at this time');
   }
+}
+
+// Check if payment is complete
+async function checkOrderPayment(orderId) {
+  const order = await getOrder(orderId);
+  
+  const moneroPayment = new MoneroPayment({
+    gatewayUrl: 'https://pay.whiskypeak.com',
+    apiKey: 'your-api-key-here'
+  });
+  
+  const isComplete = await moneroPayment.isPaymentComplete(order.paymentId);
+  
+  if (isComplete) {
+    order.status = 'paid';
+    await order.save();
+  }
+  
+  return isComplete;
 }
 ```
 ```
